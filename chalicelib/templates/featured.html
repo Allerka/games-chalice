@@ -1,0 +1,131 @@
+{% extends "index.html" %}
+{% block title %}Featured{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <h1>Featured Games</h1>
+	<p class="important">
+		This page taps into several DynamoDB tables to convert the raw API data of just ID numbers for map, champion, and spell picks into their actual names.
+    </p>
+	<p>
+		{% for item in game_list %}
+			<table style="width: 90%;">
+				<tr>
+					<td style="font-weight: bold;">
+						Game ID #:
+					</td>
+					<td>
+						{{ item.gameId }}
+					</td>
+					<td style="font-weight: bold;">
+						Observer Key:
+					</td>
+					<td>
+						{{ item.observers.encryptionKey }}
+					</td>
+				</tr>
+				<tr>
+					<td style="font-weight: bold;">
+						Game Mode:
+					</td>
+					<td>
+						{{ item.gameMode }}
+					</td>
+					<td style="font-weight: bold;">
+						Map ID:
+					</td>
+					<td>
+						{{ item.mapId }}
+					</td>
+				</tr>
+				<tr>
+					<td style="font-weight: bold;">
+						Start Time:
+					</td>
+					<td>
+						{{ item.gameStartTime }}
+					</td>
+					<td style="font-weight: bold;">
+						Game Length (Seconds):
+					</td>
+					<td>
+						{{ item.gameLength }}
+					</td>
+				</tr>
+				<tr>
+					<th colspan="4">
+						Team Composition
+					</th>
+				</tr>
+				{% for x in item.teams %}
+					<tr>
+						<td style="width: 25%; font-weight: bold; background-color:#a2ffff;">
+							Player Name:
+						</td>
+						<td style="width: 25%; background-color:#a2ffff;">
+							{{ x[0]['summonerName'] }}
+						</td>
+						<td style="width: 25%; font-weight: bold; background-color:#ffaaaa;">
+							Player Name:
+						</td>
+						<td style="width: 25%; background-color:#ffaaaa;">
+							{{ x[1]['summonerName'] }}
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 25%; font-weight: bold; background-color:#a2ffff;">
+							Champion Name:
+						</td>
+						<td style="width: 25%; background-color:#a2ffff;">
+							{{ x[0]['championId'] }}
+						</td>
+						<td style="width: 25%; font-weight: bold; background-color:#ffaaaa;">
+							Champion Name:
+						</td>
+						<td style="width: 25%; background-color:#ffaaaa;">
+							{{ x[1]['championId'] }}
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 25%; font-weight: bold; background-color:#a2ffff;">
+							First spell pick:
+						</td>
+						<td style="width: 25%; background-color:#a2ffff;">
+							{{ x[0]['spell1Id'] }}
+						</td>
+						<td style="width: 25%; font-weight: bold; background-color:#ffaaaa;">
+							First spell pick:
+						</td>
+						<td style="width: 25%; background-color:#ffaaaa;">
+							{{ x[1]['spell1Id'] }}
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 25%; font-weight: bold; background-color:#a2ffff;">
+							Second spell pick:
+						</td>
+						<td style="width: 25%; background-color:#a2ffff;">
+							{{ x[0]['spell2Id'] }}
+						</td>
+						<td style="width: 25%; font-weight: bold; background-color:#ffaaaa;">
+							Second spell pick:
+						</td>
+						<td style="width: 25%; background-color:#ffaaaa;">
+							{{ x[1]['spell2Id'] }}
+						</td>
+					</tr>
+					{% if not loop.last %}
+						<tr>
+							<td colspan="4">
+								<hr>
+							</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</table>
+			<br>
+		{% endfor %}
+	</p>
+	<br>
+{% endblock %}

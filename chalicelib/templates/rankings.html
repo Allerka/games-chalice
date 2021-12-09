@@ -1,0 +1,108 @@
+{% extends "index.html" %}
+{% block title %}Rankings{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <h1>{{ category }} Rankings - {{ queue }}</h1>
+	<p>
+		<table style="width: 30%;">
+			<thead>
+				<tr>
+					<th colspan="2">
+						Aggregate Stats (Pandas functions)
+					</th>
+				</tr>
+			</thead>
+			<tr>
+				<td style="width: 50%;">
+					Average league points:
+				</td>
+				<td style="width: 50%;">
+					{{ stats.avg_points }}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Average wins:
+				</td>
+				<td>
+					{{ stats.avg_wins }}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Average losses:
+				</td>
+				<td>
+					{{ stats.avg_losses }}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					# of players on hot streak:
+				</td>
+				<td>
+					{{ stats.streak_count }}
+				</td>
+			</tr>
+		</table>
+		<br>
+	</p>
+	<p>
+		<h3>{{ name }}</h3>
+	</p>
+	<p>
+		<table style="width: 80%;">
+			<thead>
+				<tr>
+					<th style="vertical-align: middle; width: 15%;">
+						Player Name
+					</th>
+					<th style="vertical-align: middle; width: 15%;">
+						League Points
+					</th>
+					<th style="vertical-align: middle; width: 15%;">
+						Rank
+					</th>
+					<th style="vertical-align: middle; width: 15%;">
+						Wins
+					</th>
+					<th style="vertical-align: middle; width: 15%;">
+						Losses
+					</th>
+					<th style="vertical-align: middle; width: 15%;">
+						Hot Streak
+					</th>
+				</tr>
+			</thead>
+			{% for item in player_list %}
+				<tr>
+					<td>
+						{{ item.summonerName }}
+					</td>
+					<td>
+						{{ item.leaguePoints }}
+					</td>
+					<td>
+						{{ item.rank }}
+					</td>
+					<td>
+						{{ item.wins }}
+					</td>
+					<td>
+						{{ item.losses }}
+					</td>
+					{% if item.hotStreak %}
+						<td class="scorching">
+					{% else %}
+						<td class="important">
+					{% endif %}
+						{{ item.hotStreak }}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</p>
+	<br>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "index.html" %}
+{% block title %}Server Status{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <h1>LoL Server Status</h1>
+	<p>
+		Server region: {{ server.region }}
+		<br>
+		Server locale: {{ server.locale }}
+	</p>
+	<p>
+		<h3>Maintenance Status (filtered to match the above server locale)</h3>
+		<table style="width: 70%;">
+			<thead>
+				<tr>
+					<th style="vertical-align: middle; width: 20%;">
+						Locale
+					</th>
+					<th style="vertical-align: middle; width: 20%;">
+						Title
+					</th>
+					<th style="vertical-align: middle; width: 20%;">
+						Message
+					</th>
+					<th style="vertical-align: middle; width: 20%;">
+						Platforms Affected
+					</th>
+					<th style="vertical-align: middle; width: 20%;">
+						Created At
+					</th>
+				</tr>
+			</thead>
+			{% for item in maint_list if item.locale == server.locale %}
+				<tr>
+					<td>
+						{{ item.locale }}
+					</td>
+					<td>
+						{{ item.content }}
+					</td>
+					<td>
+						{{ item.message }}
+					</td>
+					<td>
+						{{ platforms.maintenances }}
+					</td>
+					<td>
+						{{ timestamps.maintenances }}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</p>
+	<br>
+	<p>
+		<h3>Incident Reports (filtered to match the above server locale)</h3>
+		<table style="width: 70%;">
+			<thead>
+				<tr>
+					<th style="vertical-align: middle; width: 20%;">
+						Locale
+					</th>
+					<th style="vertical-align: middle; width: 20%;">
+						Title
+					</th>
+					<th style="vertical-align: middle; width: 20%;">
+						Message
+					</th>
+					<th style="vertical-align: middle; width: 20%;">
+						Platforms Affected
+					</th>
+					<th style="vertical-align: middle; width: 20%;">
+						Created At
+					</th>
+				</tr>
+			</thead>
+			{% for item in inc_list if item.locale == server.locale %}
+				<tr>
+					<td>
+						{{ item.locale }}
+					</td>
+					<td>
+						{{ item.content }}
+					</td>
+					<td>
+						{{ item.message }}
+					</td>
+					<td>
+						{{ platforms.incidents }}
+					</td>
+					<td>
+						{{ timestamps.incidents }}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</p>
+{% endblock %}

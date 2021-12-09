@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <h1>Index</h1>
+    <p class="important">
+		Welcome to the GamesChalice API! This API connects to the Riot Games network to fetch realtime data on League of Legends. Choose one of the options below.
+    </p>
+	<p>
+		{% for item in navlist %}
+			<li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+		{% endfor %}
+	</p>
+{% endblock %}
